@@ -3,23 +3,23 @@ import { Link } from 'react-router-dom'
 import { Context } from '../App'
 
 function Purchase() {
-  const [basket, setBasket] = useContext(Context)
+  const [basket] = useContext(Context)
   const [total, setTotal] = useState(0)
 
-  const updateTotal = () => {
-    let total = 0;
-
-    basket.map(item => {
-      total += (item.price * item.quantity);
-    })
-
-    setTotal(total + 5)
-    return total
-  }
-
   useEffect(() => {
+    const updateTotal = () => {
+      let total = 0;
+
+      basket.map(item => {
+        return total += (item.price * item.quantity);
+      })
+
+      setTotal(total + 5)
+      return total
+    }
+
     updateTotal()
-  }, [updateTotal])
+  }, [basket])
 
   return (
     <div className='mt-5 pt-1'>

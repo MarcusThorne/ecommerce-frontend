@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 // import { useState } from 'react'
 import { useCookies } from 'react-cookie'
 
@@ -8,15 +8,17 @@ function Navbar() {
   const [cookies, setCookie, removeCookie] = useCookies(null)
   // eslint-disable-next-line
   const userID = cookies.ID
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
 
   const signOut = () => {
     removeCookie('Email', null)
     removeCookie('AuthToken', null)
     removeCookie('ID', null)
     removeCookie('Updated', null)
-    console.log('this is in sign out method ', cookies.AuthToken)
+    console.log('this is in sign out method ', cookies)
   }
+
+  console.log(cookies.AuthToken)
 
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary px-5 py-3 fixed-top shadow-sm">
@@ -32,7 +34,7 @@ function Navbar() {
             {cookies.AuthToken ? (
               <>
                 <Link className="nav-link active" aria-current="page" to={`/users/${userID}`} >Profile</Link>
-                <button className="nav-link" onClick={signOut}>Log Out</button>
+                <button className="nav-link" onClick={() => signOut()}>Log Out</button>
               </>
             ) : (
               <>

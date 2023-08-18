@@ -2,13 +2,11 @@ import React, { useContext, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Context } from '../App'
 import { processStripe } from '../api/stripe'
-
+import Product from '../images/product.png'
 
 function Basket() {
   const [basket, setBasket] = useContext(Context)
-  const [quantity, setQuantity] = useState([])
   const [total, setTotal] = useState(0)
-  const [delivery, setDelivery] = useState(5)
 
   const updateValue = (index, newValue) => {
     const newBasket = basket.map(item => {
@@ -25,35 +23,33 @@ function Basket() {
     setBasket(newBasket)
   }
 
-  const updateTotal = () => {
-    let total = 0;
-
-    basket.map(item => {
-        total += (item.price * item.quantity);
-    })
-
-    setTotal(total + delivery)
-  }
-
   const handleSubmit = async (e) => {
     e.preventDefault()
     const items = []
     basket.map(item => {
-      items.push({ id: item.id, quantity: item.quantity })
+      return items.push({ id: item.id, quantity: item.quantity })
     })
 
     try {
-      const response = await processStripe(items);
+      await processStripe(items);
     } catch (error) {
 
     }
   }
 
   useEffect(() => {
-    updateTotal()
-  }, [setQuantity, updateTotal])
+    const updateTotal = () => {
+      let total = 0;
 
-  console.log(basket)
+      basket.map(item => {
+        return total += (item.price * item.quantity);
+      })
+
+      setTotal(total + 5)
+    }
+
+    updateTotal()
+  }, [])
 
   return (
     <section className="h-100 h-custom mt-5" >
@@ -72,11 +68,17 @@ function Basket() {
                       <hr className="my-4" />
 
                         {basket.map((item, index) => (
-                          <div className="row mb-4 d-flex justify-content-between align-items-center">
+                          <div key={index} className="row mb-4 d-flex justify-content-between align-items-center">
                             <div className="col-md-2 col-lg-2 col-xl-2">
-                              <img
-                                src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img5.webp"
-                                className="img-fluid rounded-3" alt="Cotton T-shirt" />
+                              <img src={Product}
+                                style={{
+                                  maxHeight: '300px',
+                                  width: '100%',
+                                  objectFit: 'contain',
+                                  backgroundColor: item.colour
+                                }}
+                                className="img-fluid p-3 rounded"
+                                alt="Laptop" />
                             </div>
                             <div className="col-md-3 col-lg-3 col-xl-3">
                               <h6 className="text-muted">{item.name}</h6>
@@ -112,8 +114,11 @@ function Basket() {
                             <hr className="my-4" />
 
                               <div className="pt-5">
-                                <h6 className="mb-0"><a href="#!" className="text-body"><i
-                                  className="fas fa-long-arrow-alt-left me-2"></i>Back to shop</a></h6>
+                                <h6 className="mb-0">
+                                  <Link to='/products' className="text-body">
+                                    - Back to shop
+                                  </Link>
+                                </h6>
                               </div>
                             </div>
                           </div>

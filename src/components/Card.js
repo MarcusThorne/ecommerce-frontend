@@ -1,22 +1,44 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { Context } from '../App'
+import Product from '../images/product.png'
 
 function Card({name, price, description, id}) {
   const [basket, setBasket] = useContext(Context)
+  const colours = ['#ABE188', '#F7EF99', '#F1BB87', '#F78E69']
+  const [ added, setAdded ] = useState(null)
 
   const addToBasket = () => {
-    setBasket([...basket, {id, name, price, description, quantity: 1, total: price }])
-    alert(`You've added ${name} to your basket`)
+    setBasket([...basket, {id, name, price, description, quantity: 1, total: price, colour: colours[id] }])
+
+    setAdded(`${name} added to basket!`)
+    setInterval(() => {
+      setAdded(null)
+    }, 4000);
   }
 
   return (
-    <div className="col-md-8 col-lg-6 col-xl-4 my-3">
+    <div className="col-md-8 col-lg-6 col-xl-4 my-3 relative">
+      { added && <h5 className="bg-white px-4 py-4 rounded shadow" style={{
+        position: 'absolute',
+        top: '100px',
+        right: '00px',
+        zIndex: '50'
+      }} >{ added }</h5> }
+
       <div className="card" style={{ borderRadius: '15px' }}>
       <div className="bg-image hover-overlay ripple ripple-surface ripple-surface-light"
         data-mdb-ripple-color="light">
-          <img src="https://source.unsplash.com/random/?product"
-          style={{ borderTopLeftRadius: "15px", borderTopRightRadius: "15px", maxHeight: '300px', width: '100%', objectFit: 'cover'}} className="img-fluid"
-          alt="Laptop" />
+          <img src={Product}
+            style={{
+              borderTopLeftRadius: "15px",
+              borderTopRightRadius: "15px",
+              maxHeight: '300px',
+              width: '100%',
+              objectFit: 'contain',
+              backgroundColor: colours[id]
+            }}
+            className="img-fluid p-5"
+            alt="Laptop" />
         <a href="#!">
           <div className="mask"></div>
         </a>

@@ -10,17 +10,17 @@ function User() {
 
   const [userData, setUserData ] = useState({
     id: cookies.ID,
-    first_name: '',
-    last_name: '',
-    mobile: '',
-    address_name: '',
-    address_street: '',
-    address_county: '',
-    postcode: '',
-    country: '',
-    facebook_id: '',
-    google_id: '',
-    password: ''
+    first_name: null,
+    last_name: null,
+    mobile: null,
+    address_name: null,
+    address_street: null,
+    address_county: null,
+    postcode: null,
+    country: null,
+    facebook_id: null,
+    google_id: null,
+    password: null
   })
 
   // eslint-disable-next-line
@@ -37,25 +37,22 @@ function User() {
       return
     }
 
-    // console.log(data)
-    setCookie('Updated', true)
-    // console.log(cookies.User)
-    setUserData(data)
+    const response = await findUserInfo(cookies.ID)
+    setUserData(response.data)
   }
 
   useEffect(() => {
     const fetchUser = async () => {
-      console.log('this is in user page ', cookies.AuthToken)
-      if (cookies.AuthToken !== '') {
+
+      if (cookies.AuthToken) {
         const response = await findUserInfo(cookies.ID)
         setUserData(response.data)
-        // console.log(response.data)
-        if (cookies.Updated) setCookie('Updated', false)
       }
     }
 
     fetchUser()
-  }, [cookies.AuthToken, setCookie])
+  }, [ cookies.AuthToken ])
+
 
   return (
     <div style={{marginTop: '100px'}}>
@@ -66,6 +63,11 @@ function User() {
               <img className="rounded-circle mt-5" width="150px" alt="profile pic" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" />
               <span className="font-weight-bold">{cookies.Email}</span>
               {userData.first_name && <span className="text-black-50">{userData.first_name} {userData.last_name}</span>}
+              <br />
+              {userData.address_name && <span className="text-black-50">{userData.address_name}</span>}
+              {userData.address_street && <span className="text-black-50">{userData.address_street}</span>}
+              {userData.address_county && <span className="text-black-50">{userData.address_county}</span>}
+              {userData.postcode && <span className="text-black-50">{userData.postcode}, {userData.country}</span>}
               <span> </span>
             </div>
           </div>
@@ -82,8 +84,8 @@ function User() {
                   <input
                     type="text"
                     className="form-control"
-                    placeholder={userData.first_name !== '' ? userData.first_name : 'first name'}
-                    value={userData.first_name}
+                    placeholder={userData.first_name ? userData.first_name : 'first name'}
+                    value={userData.first_name ? userData.first_name : ''}
                     onChange={(e) => setUserData({ ...userData, first_name: e.target.value})} />
                 </div>
                 {/* last name field */}
@@ -92,8 +94,8 @@ function User() {
                   <input
                     type="text"
                     className="form-control"
-                    value={userData.last_name}
-                    placeholder={userData.last_name !== '' ? userData.last_name : 'last name'}
+                    value={userData.last_name ? userData.last_name : ''}
+                    placeholder={userData.last_name ? userData.last_name : 'last name'}
                     onChange={(e) => setUserData({ ...userData, last_name: e.target.value})} />
                 </div>
               </div>
@@ -105,8 +107,8 @@ function User() {
                   <input
                     type="text"
                     className="form-control"
-                    placeholder={userData.mobile !== '' ? userData.mobile : 'mobile'}
-                    value={userData.mobile}
+                    placeholder={userData.mobile ? userData.mobile : 'mobile'}
+                    value={userData.mobile ? userData.mobile : ''}
                     onChange={(e) => setUserData({ ...userData, mobile: e.target.value})} />
                 </div>
                 {/* house name or number field */}
@@ -115,8 +117,8 @@ function User() {
                   <input
                     type="text"
                     className="form-control"
-                    placeholder={userData.address_name}
-                    value={userData.address_name}
+                    placeholder={userData.address_name && userData.address_name}
+                    value={userData.address_name ? userData.address_name : ''}
                     onChange={(e) => setUserData({ ...userData, address_name: e.target.value}) } />
                 </div>
                 {/* Address street field */}
@@ -125,8 +127,8 @@ function User() {
                   <input
                     type="text"
                     className="form-control"
-                    placeholder={userData.address_street}
-                    value={userData.address_street}
+                    placeholder={userData.address_street && userData.address_street}
+                    value={userData.address_street ? userData.address_street : ''}
                     onChange={(e) => setUserData({ ...userData, address_street: e.target.value})} />
                 </div>
                 {/* address county field s */}
@@ -135,8 +137,8 @@ function User() {
                   <input
                     type="text"
                     className="form-control"
-                    placeholder={userData.address_county}
-                    value={userData.address_county}
+                    placeholder={userData.address_county && userData.address_county}
+                    value={userData.address_county ? userData.address_county : ''}
                     onChange={(e) => setUserData({ ...userData, address_county: e.target.value})}  />
                 </div>
                 {/* postcode field */}
@@ -145,9 +147,9 @@ function User() {
                   <input
                     type="text"
                     className="form-control"
-                    placeholder={userData.postcode}
-                    value={userData.postcode}
-                    onChange={(e) => setUserData({ ...userData, postcode: e.target.value})}  />
+                    placeholder={userData.postcode && userData.postcode}
+                    value={userData.postcode ? userData.postcode : ''}
+                    onChange={(e) => setUserData({ ...userData, postcode: e.target.value.toUpperCase() })}  />
                 </div>
               </div>
 
@@ -158,8 +160,8 @@ function User() {
                   <input
                     type="text"
                     className="form-control"
-                    placeholder={userData.country}
-                    value={userData.country}
+                    placeholder={userData.country && userData.country}
+                    value={userData.country ? userData.country : ''}
                     onChange={(e) => setUserData({ ...userData, country: e.target.value})} />
                 </div>
               </div>

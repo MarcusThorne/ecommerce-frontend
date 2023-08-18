@@ -17,6 +17,7 @@ import Success from './pages/Success'
 export const Context = React.createContext();
 
 function App() {
+    // eslint-disable-next-line
   const [cookies, setCookie ] = useCookies(null)
   const [basket, setBasket] = useState([])
 

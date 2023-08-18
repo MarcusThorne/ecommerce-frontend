@@ -6,17 +6,9 @@ import { Link } from 'react-router-dom'
 
 
 function Register() {
-  const button = {
-    backgroundColor: 'dodgerblue',
-    width: '100px',
-    cursor: 'pointer',
-    padding: '4px',
-    margin: '2px',
-    color: 'white'
-  }
-
   const navigate = useNavigate();
 
+    // eslint-disable-next-line
   const [cookies, setCookie, removeCookie] = useCookies(null)
 
   const [isLogin, setIsLogin] = useState(true);
@@ -41,18 +33,16 @@ function Register() {
 
     const userData = await getUser(endpoint, email, password);
 
-    console.log(userData)
     if (userData.detail) {
       setError(userData.detail)
       return
     }
 
-    console.log('this is the log for userdata ', userData)
-
     setCookie('Email', userData.data.email)
     setCookie('AuthToken', userData.token)
     setCookie('ID', userData.data.id)
     navigate(`/users/${userData.data.id}`)
+    return
   }
 
   return (

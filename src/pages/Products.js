@@ -20,7 +20,12 @@ function Products() {
       <div className="container py-5 mt-5">
         <div className="row justify-content-center">
           {products && products.map((product, id) => (
-            <Card key={id} name={product.name} price={product.price} description={product.description} id={product.id} />
+            <Card
+              key={id}
+              name={product.name}
+              price={product.price}
+              description={product.description}
+              id={product.id} />
           ))}
         </div>
       </div>
