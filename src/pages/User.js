@@ -43,15 +43,12 @@ function User() {
 
   useEffect(() => {
     const fetchUser = async () => {
-
-      if (cookies.AuthToken) {
-        const response = await findUserInfo(cookies.ID)
-        setUserData(response.data)
-      }
+      const response = await findUserInfo(cookies.ID)
+      setUserData(response.data)
     }
 
     fetchUser()
-  }, [ cookies.AuthToken ])
+  }, [ cookies.AuthToken])
 
 
   return (
