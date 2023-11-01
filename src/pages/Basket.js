@@ -49,7 +49,7 @@ function Basket() {
     }
 
     updateTotal()
-  }, [])
+  }, [basket])
 
   return (
     <section className="h-100 h-custom mt-5" >

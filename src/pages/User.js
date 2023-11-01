@@ -48,7 +48,7 @@ function User() {
     }
 
     fetchUser()
-  }, [ cookies.AuthToken])
+  }, [ cookies.ID, cookies.AuthToken ])
 
 
   return (
