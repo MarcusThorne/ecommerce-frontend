@@ -1,5 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import Beans from '../images/beans.jpg'
+import Tray from '../images/tray.jpg'
+import NiceOriginal from '../images/coffee/niceoriginal.jpg'
+import Contact from '../images/contact-us-lettering.webp'
+import Blue from '../images/blue-cup.webp'
+import Yellow from '../images/yellow-cup.webp'
+import Pink from '../images/pink-cup.webp'
+import Bean from '../images/bean.webp'
 
 function Home() {
   const imageStyle = {
@@ -18,25 +26,18 @@ function Home() {
         </div>
         <div className="carousel-inner">
           <div className="carousel-item active" data-bs-interval="10000">
-            <img src="https://source.unsplash.com/random" className="d-block w-100" alt="..." style={imageStyle} />
-              <div className="carousel-caption d-none d-md-block">
-                <h5>First slide label</h5>
-                <p>Some representative placeholder content for the first slide.</p>
-              </div>
+            <img src={Beans} className="d-block w-100" alt="..." style={imageStyle} />
+            <div className="carousel-caption d-none d-md-block text-white">
+              <h1 className='mb-5'>Specialty Coffee</h1>
+              <p className='mb-5'>Why is Coffee so popular? It can be sweet, it can be fruity, it can be anything you choose. It's up to you how your coffee tastes. Just pick the flavour that suits you. We have a variety of blends and origins, so you can have your choice. What are you waiting for, we're the best way to buy coffee beans.</p>
+            </div>
           </div>
           <div className="carousel-item" data-bs-interval="2000">
-            <img src="https://source.unsplash.com/random" className="d-block w-100" alt="..." style={imageStyle} />
-              <div className="carousel-caption d-none d-md-block">
-                <h5>Second slide label</h5>
-                <p>Some representative placeholder content for the second slide.</p>
-              </div>
-          </div>
-          <div className="carousel-item">
-            <img src="..." className="d-block w-100" alt="..." />
-              <div className="carousel-caption d-none d-md-block">
-                <h5>Third slide label</h5>
-                <p>Some representative placeholder content for the third slide.</p>
-              </div>
+            <img src={Tray} className="d-block w-100" alt="..." style={imageStyle} />
+            <div className="carousel-caption d-none d-md-block text-white">
+              <h1 className='mb-5'>Specialty Coffee</h1>
+              <p className='mb-5'>Why is Coffee so popular? It can be sweet, it can be fruity, it can be anything you choose. It's up to you how your coffee tastes. Just pick the flavour that suits you. We have a variety of blends and origins, so you can have your choice. What are you waiting for, we're the best way to buy coffee beans.</p>
+            </div>
           </div>
         </div>
         <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
@@ -49,19 +50,46 @@ function Home() {
         </button>
       </div>
 
-    <div className="card text-center container my-5">
-      <div className="card-header">
-        New Products
+      <h2 className='container mt-5'>Our Favourites</h2>
+      <div className="d-flex my-5 row justify-content-around">
+        <div className='text-center col'>
+          <img src={NiceOriginal} alt='Nice Original Coffee' style={{width: '300px'}} />
+          <h5>Nice Original</h5>
+          <p>£9.99</p>
+        </div>
+
+        <div className='text-center col'>
+          <img src={NiceOriginal} alt='Nice Original Coffee' style={{ width: '300px' }} />
+          <h5>Nice Original</h5>
+          <p>£9.99</p>
+        </div>
+
+        <div className='text-center col'>
+          <img src={NiceOriginal} alt='Nice Original Coffee' style={{ width: '300px' }} />
+          <h5>Nice Original</h5>
+          <p>£9.99</p>
+        </div>
+
+        <div className='text-center col'>
+          <img src={NiceOriginal} alt='Nice Original Coffee' style={{ width: '300px' }} />
+          <h5>Nice Original</h5>
+          <p>£9.99</p>
+        </div>
       </div>
-      <div className="card-body">
-        <h5 className="card-title">Check out our new collection!</h5>
-        <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <Link to="/products" className="btn btn-primary">See Products</Link>
+
+      <div className='d-flex container p-5 border my-5 border-4 border-dark rounded'>
+        <div>
+          <h1>Taste Guaranteed or Money Back!</h1>
+          <p>We want to help everyone find the best coffee for them, that's why we will give you your money back if the coffee doesn't quench your thirst, or we can send you out a new bag! We aim to be there for you all, all you have to do is reach out.</p>
+        </div>
+        <img src={Contact} alt='Contact Us Lettering' style={{ width: '300px' }} />
       </div>
-      <div className="card-footer text-body-secondary">
-        2 days ago
+
+      <div className='row container mx-auto my-5' >
+        <img src={Blue} className='rounded col' alt='' style={{ width: '300px' }} />
+        <img src={Yellow} className='rounded col' alt='' style={{ width: '300px' }} />
+        <img src={Pink} className='rounded col' alt='' style={{ width: '300px' }} />
       </div>
-    </div>
     </>
   )
 }

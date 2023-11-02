@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { Context } from '../App'
-import Product from '../images/product.png'
+import Product from '../images/coffee/niceoriginal.jpg'
 
 function Card({name, price, description, id}) {
   const [basket, setBasket] = useContext(Context)
@@ -35,7 +35,6 @@ function Card({name, price, description, id}) {
               maxHeight: '300px',
               width: '100%',
               objectFit: 'contain',
-              backgroundColor: colours[id]
             }}
             className="img-fluid p-5"
             alt="Laptop" />
